@@ -9,12 +9,14 @@ import login
 # Get Reddit instance from login.py
 reddit = login.get_reddit()
 
-# Define subreddit to scrape
+# Define subreddit to scrape and number of posts
 subreddit = "botsRights"
+post_number = 1000
+
 
 # Create empty list of data and populate it
 data_list = []
-for submission in reddit.subreddit(subreddit).hot(limit=10):
+for submission in reddit.subreddit(subreddit).hot(limit=post_number):
     data_list.append(submission.title)
 
 print(data_list)
