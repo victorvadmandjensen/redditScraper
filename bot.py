@@ -1,5 +1,9 @@
 import praw
+from pathlib import Path
+import pathlib
 from openpyxl import Workbook
+import xlsxwriter
+# import login.py file
 import login
 
 # Get Reddit instance from login.py
@@ -8,17 +12,27 @@ reddit = login.get_reddit()
 # Define subreddit to scrape
 subreddit = "botsRights"
 
-# Create empty list of data
+# Create empty list of data and populate it
 data_list = []
-
 for submission in reddit.subreddit(subreddit).hot(limit=10):
     data_list.append(submission.title)
 
 print(data_list)
 
+# Get the path of the xlsx file for data to be saved in
+a = pathlib.Path(__file__)
+p = a.parents[0] / "python_data.xlsx"
+data_file = Path(p)
+
+# Check if Excel file exists, and if not create it
+if data_file.is_file():
+    print("Data file exists")
+else:
+    workbook = xlsxwriter.Workbook("python_data.xlsx")
+    print("Data file has been created")
+
 # Define workbook to write to and file
 wb = Workbook()
-destination = "python_data.xlsx"
 ws1 = wb.create_sheet(title="test_data")
 
 # Iterate over items in data_list and add the title to the Excel sheet
@@ -26,4 +40,4 @@ for data_item in range(1, len(data_list)):
     ws1.cell(column=1, row=data_item).value= data_list[data_item]
 
 # Save the workbook
-wb.save(filename=destination)
+wb.save(filename=data_file)
