@@ -6,7 +6,7 @@ This is redditScraper, a script which pulls data from a subreddit and saves it i
 The scraper uses Python 3.10.9, so if you do not have that, you need to install it. To get it running you have to:
 * Create an application in your reddit settings.
 * Create a file called "login.txt" with the data from your application in the form of "client_id, client_secret, user_agent, username, password". This will be loaded into login.py.
-* Install the following Python modules on your computer: praw, pathlib, openpyxl, xlsxwriter.
+* Install the following Python modules on your computer: praw, pathlib, openpyxl, xlsxwriter. Write "pip install XYZ", where XYZ is the name of the module.
 
 In bot.py, you can change the subreddit you want, as well as the amount of posts.
 
