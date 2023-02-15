@@ -5,6 +5,7 @@ from openpyxl import Workbook
 import xlsxwriter
 # import login.py file
 import login
+import datetime
 
 # Get Reddit instance from login.py
 reddit = login.get_reddit()
@@ -42,7 +43,9 @@ ws2 = wb.create_sheet(title="Post times")
 # Iterate over items in data_list and add the title to the Excel sheet
 for data_item in range(1, len(data_list)):
     ws1.cell(column=1, row=data_item).value = data_list[data_item].title
-    ws2.cell(column=1, row=data_item).value = data_list[data_item].created_utc
+    # convert Unix time of posts to UTC
+    new_time = datetime.datetime.utcfromtimestamp(data_list[data_item].created_utc)
+    ws2.cell(column=1, row=data_item).value = new_time
 
 # Save the workbook
 wb.save(filename=data_file)
