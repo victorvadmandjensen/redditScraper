@@ -16,8 +16,8 @@ post_number = 1000
 
 # Create empty list of data and populate it
 data_list = []
-for submission in reddit.subreddit(subreddit).hot(limit=post_number):
-    data_list.append(submission.title)
+for submission in reddit.subreddit(subreddit).top(time_filter = "all", limit= None ):
+    data_list.append(submission)
 
 print(data_list)
 
@@ -35,11 +35,14 @@ else:
 
 # Define workbook to write to and file
 wb = Workbook()
-ws1 = wb.create_sheet(title="test_data")
+ws1 = wb.create_sheet(title="Post titles")
+ws2 = wb.create_sheet(title="Post times")
+
 
 # Iterate over items in data_list and add the title to the Excel sheet
 for data_item in range(1, len(data_list)):
-    ws1.cell(column=1, row=data_item).value= data_list[data_item]
+    ws1.cell(column=1, row=data_item).value = data_list[data_item].title
+    ws2.cell(column=1, row=data_item).value = data_list[data_item].created_utc
 
 # Save the workbook
 wb.save(filename=data_file)
