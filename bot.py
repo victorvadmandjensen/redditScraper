@@ -39,6 +39,7 @@ wb = Workbook()
 ws1 = wb.create_sheet(title="Post titles")
 ws2 = wb.create_sheet(title="Post times")
 ws3 = wb.create_sheet(title="Post authors")
+ws4 = wb.create_sheet(title="Post selftexts")
 
 
 # Iterate over items in data_list and add the title to the Excel sheet
@@ -51,6 +52,7 @@ for data_item in range(1, len(data_list)):
     new_time = datetime.datetime.utcfromtimestamp(data_list[data_item].created_utc)
     ws2.cell(column=1, row=data_item).value = new_time
     ws3.cell(column=1, row=data_item).value = data_list[data_item].author.name
+    ws4.cell(column=1, row=data_item).value = data_list[data_item].selftext
 
 # Save the workbook
 wb.save(filename=data_file)
