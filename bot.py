@@ -6,6 +6,7 @@ import xlsxwriter
 # import login.py file
 import login
 import datetime
+from bs4 import BeautifulSoup
 
 # Get Reddit instance from login.py
 reddit = login.get_reddit()
