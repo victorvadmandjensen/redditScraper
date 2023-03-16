@@ -66,8 +66,8 @@ for data_item in range(1, len(data_list)):
     #ws4.cell(column=1, row=data_item).value = data_list[data_item].selftext
     for comment in data_list[data_item].comments:
         number_comments += 1
-        ws5.cell(column=1,row=data_item+1).value = comment.body_html
-        if number_comments == 1000:
+        ws5.cell(column=1,row=data_item+1).value = ''.join(BeautifulSoup(comment.body_html).findAll(text=True))
+        if number_comments > 1000:
             break
 
 #print number of submissions
