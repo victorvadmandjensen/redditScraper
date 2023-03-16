@@ -65,7 +65,10 @@ for data_item in range(1, len(data_list)):
     ws3.cell(column=1, row=data_item+1).value = data_list[data_item].author.name
     #ws4.cell(column=1, row=data_item).value = data_list[data_item].selftext
     for comment in data_list[data_item].comments:
-        ws5.cell(column=1,row=data_item+1).value = comment.body
+        number_comments += 1
+        ws5.cell(column=1,row=data_item+1).value = comment.body_html
+        if number_comments == 1000:
+            break
 
 #print number of submissions
 print(f"Number of submissions is: {len(data_list)}")
