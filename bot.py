@@ -18,7 +18,7 @@ post_number = 1000
 
 # Create empty list of data and populate it
 data_list = []
-for submission in reddit.subreddit(subreddit).top(time_filter = "all", limit= None ):
+for submission in reddit.subreddit(subreddit).top(time_filter = "all", limit= 50 ):
     data_list.append(submission)
 
 # print(data_list)
@@ -50,7 +50,8 @@ ws3.cell(column=1, row=1).value = "Post authors"
 #ws4.cell(column=1, row=1).value = "Post selftexts")
 
 ws5 = wb.create_sheet(title="Post comments")
-ws5.cell(column=1, row=1).value = "Post comments"
+ws5.cell(column=2, row=1).value = "Post comments"
+ws5.cell(column=1, row=1).value = "Post ID"
 
 number_comments = 0
 
@@ -65,9 +66,10 @@ for data_item in range(1, len(data_list)):
     ws2.cell(column=1, row=data_item+1).value = new_time
     ws3.cell(column=1, row=data_item+1).value = data_list[data_item].author.name
     #ws4.cell(column=1, row=data_item).value = data_list[data_item].selftext
+    ws5.cell(column=1, row=data_item+1).value = data_list[data_item].id
     for comment in data_list[data_item].comments:
         number_comments += 1
-        ws5.cell(column=1,row=data_item+1).value = ''.join(BeautifulSoup(comment.body_html).findAll(text=True))
+        ws5.cell(column=1,row=data_item+1).value = ''.join(BeautifulSoup(comment.body_html).findAll(text=string))
         if number_comments > 1000:
             break
 
