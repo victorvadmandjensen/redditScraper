@@ -48,12 +48,29 @@ ws5.cell(column=1, row=1).value = "Post ID"
 wb2 = load_workbook("python_post_data.xlsx")
 ws_titles = wb2["Post IDs"]
 
-number_comments = 0
+number_of_posts = 0
+post_array = []
 
 # loop through the specific rows in the relevant sheet 
-for col in ws_titles:
-    for row in col:
-        print(row.value)
+for col in ws_titles.iter_rows(min_row=2,min_col=1,max_col=1,values_only=True):
+    number_of_posts += 1
+    # check if we are not on the 10th row
+    if number_of_posts < 5:
+        #print(col)
+        find_post = reddit.submission( str(col) )
+        print(find_post)
+        # check that the row's value is not the title and that it is not empty
+        #if not col == "None":
+        # get post based on ID from row
+         #   find_post = reddit.submission(id=col)
+            #print(find_post.title)
+          #  for comment in find_post.comments:
+                #ws5.cell(column=1,row=col+1).value = find_post.id
+                #ws5.cell(column=2,row=col+1).value = ''.join(BeautifulSoup(comment.body_html, "html.parser").findAll(string=True) )
+        #if not find_post:
+        #   continue
+        #else:
+         #   continue
 
 # Iterate over items in data_list and add the title to the Excel sheet
 #for data_item in range(1, len(data_list)):
