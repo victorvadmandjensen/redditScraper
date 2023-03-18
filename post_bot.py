@@ -18,7 +18,7 @@ post_number = 1000
 
 # Create empty list of data and populate it
 data_list = []
-for submission in reddit.subreddit(subreddit).top(time_filter = "all", limit= 50 ):
+for submission in reddit.subreddit(subreddit).top(time_filter = "all", limit= 200):
     data_list.append(submission)
 
 # print(data_list)
@@ -37,20 +37,21 @@ else:
 
 # Define workbook to write to and file and add column names
 wb = Workbook()
-ws1 = wb.create_sheet(title="Post titles")
-ws1.cell(column=1, row=1).value = "Post titles"
+ws1 = wb.create_sheet(title="Post titles and IDs")
+ws1.cell(column=1, row=1).value = "Post title"
+ws1.cell(column=2, row=1).value = "Post ID"
 
 ws2 = wb.create_sheet(title="Post times")
-ws2.cell(column=1, row=1).value = "Post times"
+ws2.cell(column=1, row=1).value = "Post time"
 
 ws3 = wb.create_sheet(title="Post authors")
-ws3.cell(column=1, row=1).value = "Post authors"
+ws3.cell(column=1, row=1).value = "Post author"
 
 #ws4 = wb.create_sheet(title="Post selftexts")
 #ws4.cell(column=1, row=1).value = "Post selftexts")
 
 ws5 = wb.create_sheet(title="Post comments")
-ws5.cell(column=2, row=1).value = "Post comments"
+ws5.cell(column=2, row=1).value = "Post comment"
 ws5.cell(column=1, row=1).value = "Post ID"
 
 number_comments = 0
@@ -61,17 +62,18 @@ for data_item in range(1, len(data_list)):
     if not data_list[data_item].author:
         continue
     ws1.cell(column=1, row=data_item+1).value = data_list[data_item].title
+    ws1.cell(column=2, row=data_item+1).value = data_list[data_item].id
     # convert Unix time of posts to UTC
     new_time = datetime.datetime.utcfromtimestamp(data_list[data_item].created_utc)
     ws2.cell(column=1, row=data_item+1).value = new_time
     ws3.cell(column=1, row=data_item+1).value = data_list[data_item].author.name
     #ws4.cell(column=1, row=data_item).value = data_list[data_item].selftext
-    ws5.cell(column=1, row=data_item+1).value = data_list[data_item].id
-    for comment in data_list[data_item].comments:
-        number_comments += 1
-        ws5.cell(column=1,row=data_item+1).value = ''.join(BeautifulSoup(comment.body_html).findAll(text=string))
-        if number_comments > 1000:
-            break
+    #ws5.cell(column=1, row=data_item+1).value = data_list[data_item].id
+    #for comment in data_list[data_item].comments:
+     #   number_comments += 1
+      #  ws5.cell(column=2,row=data_item+1).value = ''.join(BeautifulSoup(comment.body_html, "html.parser").findAll(string=True))
+       # if number_comments > 1000:
+        #    break
 
 #print number of submissions
 print(f"Number of submissions is: {len(data_list)}")
