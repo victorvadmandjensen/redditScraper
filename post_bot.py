@@ -18,7 +18,7 @@ post_number = 1000
 
 # Create empty list of data and populate it
 data_list = []
-for submission in reddit.subreddit(subreddit).top(time_filter = "all", limit= 200):
+for submission in reddit.subreddit(subreddit).top(time_filter = "all", limit=none):
     data_list.append(submission)
 
 # print(data_list)
