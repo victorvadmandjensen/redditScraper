@@ -50,46 +50,25 @@ ws_titles = wb2["Post IDs"]
 
 number_of_posts = 0
 post_array = []
+comment_array =[]
 
-# loop through the specific rows in the relevant sheet 
-for col in ws_titles.iter_rows(min_row=2,min_col=1,max_col=1,values_only=True):
-    number_of_posts += 1
-    # check if we are not on the 10th row
-    if number_of_posts < 5:
-        #print(col)
-        find_post = reddit.submission( str(col) )
-        print(find_post)
-        # check that the row's value is not the title and that it is not empty
-        #if not col == "None":
-        # get post based on ID from row
-         #   find_post = reddit.submission(id=col)
-            #print(find_post.title)
-          #  for comment in find_post.comments:
-                #ws5.cell(column=1,row=col+1).value = find_post.id
-                #ws5.cell(column=2,row=col+1).value = ''.join(BeautifulSoup(comment.body_html, "html.parser").findAll(string=True) )
-        #if not find_post:
-        #   continue
-        #else:
-         #   continue
+# create counter so we can keep track of rows, and start on 1, so when we add we go to row 2
+counter = 1
+# loop through the specific rows in the relevant sheet . Set to 1005 just to make sure, but we do not have that many posts!
+for i in range(1, 1005):
+    # read the ID of the post we are currently at
+    current_post = ws_titles.cell(column=1,row=i+1).value
+    # if current_post is empty in Excel (as in post has been deleted) just continue
+    if current_post == None:
+        continue
+    find_post = reddit.submission(current_post)
+    # for loop through all the comments of a post, and add them to Excel sheet
+    for comment in find_post.comments:
+        counter = counter + 1
+        #print(comment.body)
+        ws5.cell(column=1, row=counter).value = str(find_post)
+        ws5.cell(column=2,row=counter).value = ''.join(BeautifulSoup(comment.body_html, "html.parser").findAll(string=True) )
 
-# Iterate over items in data_list and add the title to the Excel sheet
-#for data_item in range(1, len(data_list)):
-    # Check if the author is deleted
-    #if not data_list[data_item].author:
-    #    continue
-    #ws1.cell(column=1, row=data_item+1).value = data_list[data_item].title
-    #ws1.cell(column=2, row=data_item+1).value = data_list[data_item].id
-    # convert Unix time of posts to UTC
-    #new_time = datetime.datetime.utcfromtimestamp(data_list[data_item].created_utc)
-    #ws2.cell(column=1, row=data_item+1).value = new_time
-    #ws3.cell(column=1, row=data_item+1).value = data_list[data_item].author.name
-    #ws4.cell(column=1, row=data_item).value = data_list[data_item].selftext
-    #ws5.cell(column=1, row=data_item+1).value = data_list[data_item].id
-    #for comment in data_list[data_item].comments:
-     #   number_comments += 1
-      #  ws5.cell(column=2,row=data_item+1).value = ''.join(BeautifulSoup(comment.body_html, "html.parser").findAll(string=True))
-       # if number_comments > 1000:
-        #    break
 
 #print number of submissions
 #print(f"Number of submissions is: {len(data_list)}")
