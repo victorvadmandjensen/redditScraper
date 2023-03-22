@@ -48,33 +48,26 @@ ws5.cell(column=1, row=1).value = "Post ID"
 wb2 = load_workbook("python_post_data.xlsx")
 ws_titles = wb2["Post IDs"]
 
-number_of_posts = 0
-post_array = []
-comment_array =[]
-
 # create counter so we can keep track of rows, and start on 1, so when we add we go to row 2
 counter = 1
 # loop through the specific rows in the relevant sheet . Set to 1005 just to make sure, but we do not have that many posts!
-for i in range(1, 1005):
+for i in range(1, 50):
     # read the ID of the post we are currently at
     current_post = ws_titles.cell(column=1,row=i+1).value
     # if current_post is empty in Excel (as in post has been deleted) just continue
     if current_post == None:
         continue
+
     find_post = reddit.submission(current_post)
-    # for loop through all the comments of a post, and add them to Excel sheet
-    for comment in find_post.comments:
+    # The below code traverses the tree of comments breadth-first, meaning it looks for all comments on one level, before moving to tbe next level
+    # Good explanation for breadth-first: https://old.reddit.com/r/explainlikeimfive/comments/1g7j4t/eli5_whats_the_difference_between_depth_first/cahhrn1/ 
+    find_post.comments.replace_more(limit=None)
+    for comment in find_post.comments.list():
+        # increment counter
         counter = counter + 1
-        #print(comment.body)
+        # put data into worksheet
         ws5.cell(column=1, row=counter).value = str(find_post)
         ws5.cell(column=2,row=counter).value = ''.join(BeautifulSoup(comment.body_html, "html.parser").findAll(string=True) )
-
-
-#print number of submissions
-#print(f"Number of submissions is: {len(data_list)}")
-
-# print number of comments
-#print(f"Number of comments is: {number_comments}, but this is not calculated correctly.")
-
+        
 # Save the workbook
 wb.save(filename=data_file)
