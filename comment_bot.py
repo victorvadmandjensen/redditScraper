@@ -51,7 +51,7 @@ ws_titles = wb2["Post IDs"]
 # create counter so we can keep track of rows, and start on 1, so when we add we go to row 2
 counter = 1
 # loop through the specific rows in the relevant sheet . Set to 1005 just to make sure, but we do not have that many posts!
-for i in range(1, 50):
+for i in range(1, 1000):
     # read the ID of the post we are currently at
     current_post = ws_titles.cell(column=1,row=i+1).value
     # if current_post is empty in Excel (as in post has been deleted) just continue
