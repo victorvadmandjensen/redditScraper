@@ -57,16 +57,16 @@ ws5.cell(column=1, row=1).value = "Post ID"
 number_comments = 0
 
 # Iterate over items in data_list and add the title to the Excel sheet
-for data_item in range(1, len(data_list)):
+for data_item in range(0, len(data_list)):
     # Check if the author is deleted
     if not data_list[data_item].author:
         continue
-    ws1.cell(column=1, row=data_item+1).value = data_list[data_item].title
-    ws4.cell(column=1, row=data_item+1).value = data_list[data_item].id
+    ws1.cell(column=1, row=data_item+2).value = data_list[data_item].title
+    ws4.cell(column=1, row=data_item+2).value = data_list[data_item].id
     # convert Unix time of posts to UTC
     new_time = datetime.datetime.utcfromtimestamp(data_list[data_item].created_utc)
-    ws2.cell(column=1, row=data_item+1).value = new_time
-    ws3.cell(column=1, row=data_item+1).value = data_list[data_item].author.name
+    ws2.cell(column=1, row=data_item+2).value = new_time
+    ws3.cell(column=1, row=data_item+2).value = data_list[data_item].author.name
     #ws4.cell(column=1, row=data_item).value = data_list[data_item].selftext
     #ws5.cell(column=1, row=data_item+1).value = data_list[data_item].id
     #for comment in data_list[data_item].comments:
