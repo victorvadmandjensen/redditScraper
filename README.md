@@ -11,4 +11,8 @@ The scraper uses Python 3.10.9, so if you do not have that, you need to install 
 In bot.py, you can change the subreddit you want, as well as the amount of posts.
 
 ## Running the scraper
-To run the scraper, you just navigate into the directory of the scraper on your computer. Then you run the script, and it will generate the right .xlsx-file. The system has not been tested on macOS or Linux.
+To run the scraper, you do the following:
+1. Navigate into the directory of the scraper on your computer in your IDE of choice (I use Visual Studio Code).
+2. You run the post_bot.py script, which generates an Excel file to get the top 1000 posts on a subreddit (which you can change in this script as well).
+3. You run the comment_bot.py script, which uses the Excel file for posts to scrape all comments related to the posts, saving this in a new Excel file.
+  a. NOTE: This will take a LONG time, ~15 minutes to fetch ~13,000 posts. Be patient here!
