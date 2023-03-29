@@ -1,6 +1,6 @@
 # redditScraper - reddit data for controversy mapping!
 
-This is redditScraper, a script which pulls data from a subreddit and saves it in .xlsx-files. This is useful for conducting controversy mapping based on the Mapping Controversies course and material herein (found at https://jacomyma.github.io/mapping-controversies/). By default, it scrapes submission titles from the subreddit botsRights, to help map the discourse on this subreddit. 
+This is redditScraper, a script which pulls data from a subreddit and saves it in .xlsx-files. This is useful for conducting controversy mapping based on the Master's programme in Techno-Anthropology's Mapping Controversies course and material herein (found at https://jacomyma.github.io/mapping-controversies/). By default, it scrapes submission titles from the subreddit botsRights, to help map the discourse on this subreddit. 
 
 ## Setup
 The scraper uses Python 3.10.9, so if you do not have that, you need to install it. To get it running you have to:
