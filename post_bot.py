@@ -12,7 +12,7 @@ from bs4 import BeautifulSoup
 reddit = login.get_reddit()
 
 # Define subreddit to scrape and number of posts
-subreddit = "botsRights"
+subreddit = "artificial"
 post_number = 1000
 
 
@@ -58,6 +58,7 @@ number_comments = 0
 
 # Iterate over items in data_list and add the title to the Excel sheet
 for data_item in range(0, len(data_list)):
+    print(data_item)
     # Check if the author is deleted
     if not data_list[data_item].author:
         continue

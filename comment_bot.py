@@ -55,6 +55,7 @@ for i in range(1, 1000):
     # read the ID of the post we are currently at
     current_post = ws_titles.cell(column=1,row=i+1).value
     # if current_post is empty in Excel (as in post has been deleted) just continue
+    print(current_post)
     if current_post == None:
         continue
 
@@ -68,6 +69,8 @@ for i in range(1, 1000):
         # put data into worksheet
         ws5.cell(column=1, row=counter).value = str(find_post)
         ws5.cell(column=2,row=counter).value = ''.join(BeautifulSoup(comment.body_html, "html.parser").findAll(string=True) )
+        print(comment)
+        wb.save(filename=data_file)
         
 # Save the workbook
 wb.save(filename=data_file)
